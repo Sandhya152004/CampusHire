@@ -1,60 +1,120 @@
-# Placement Management Portal
+# CampusHire
 
-A full-stack web application designed to manage and streamline the campus placement process between students, companies, and the institute placement cell.
+A full-stack campus placement management platform connecting students,
+companies, and placement administrators through role-based workflows.
 
-The platform provides separate role-based access for Students, Companies, and Admin with secure authentication, placement drive management, application tracking, and recruitment workflow management.
+## Live Demo
+
+Frontend: https://campushire-frontend-hvng.onrender.com/
+
+Backend API: https://campushire-0gko.onrender.com/
+
+## Overview
+
+CampusHire is a role-based placement management system designed to
+digitize the campus recruitment process.
+
+The platform provides separate dashboards and workflows for:
+
+- Students
+- Companies
+- Placement Administrators
+
+The application includes authentication, placement-drive management,
+eligibility filtering, applications, shortlisting, interview scheduling,
+resume management, and reporting.
 
 ## Features
 
-### Admin
-- Secure admin login (pre-created superuser)
-- Dashboard with placement statistics
-- Approve and manage company registrations
-- Manage students, companies, and placement drives
-- Role-based access control
+### Student
+
+- Student registration and login
+- Profile management
+- Resume upload
+- Browse placement drives
+- Search placement drives
+- Filter by degree and eligibility
+- Skill-match indicators
+- Apply for placement drives
+- Withdraw applications
+- Track application status
+- Change password
 
 ### Company
-- Company registration and authentication
-- Company dashboard
-- Create placement drives
-- View student applications
-- Shortlist, reject, and update application status
 
-### Student
-- Student registration and authentication
-- View available placement drives
-- Eligibility-based applications
-- Apply for placement opportunities
-- Track application status and placement history
-- Profile management support
+- Company registration and authentication
+- Company profile management
+- Create placement drives
+- Define eligibility criteria
+- Specify required skills
+- View applicants
+- Shortlist or reject candidates
+- Schedule interviews
+
+### Admin
+
+- Admin authentication
+- Manage students and companies
+- Manage placement drives
+- Monitor applications
+- Manage recruitment workflows
+- Generate reports
 
 ## Tech Stack
 
 ### Frontend
+
 - Vue.js 3
 - Vue Router
 - Axios
 - Bootstrap
+- Vite
 
 ### Backend
+
+- Python
 - Flask
-- Flask SQLAlchemy
-- Flask JWT Extended
-- REST APIs
+- Flask REST APIs
+- SQLAlchemy
+- JWT Authentication
+- Flask-Caching
 
-### Database
-- SQLite
+### Database & Infrastructure
 
-### Upcoming Enhancements
-- Resume upload
-- Advanced search and filtering
-- Redis caching
-- Celery background jobs
-- Daily reminders
-- Monthly placement reports
-- CSV export
+- PostgreSQL
+- SQLite for local development
+- Redis
+- Celery
+- Docker
+- Render
 
-## Project Architecture
+## Architecture
 
-Frontend communicates with the Flask backend through REST APIs. Authentication is handled using JWT tokens with role-based authorization for Students, Companies, and Admin.
-
+```text
+                    ┌────────────────────┐
+                    │   Vue.js Frontend  │
+                    │   Render Static    │
+                    │       Site         │
+                    └─────────┬──────────┘
+                              │
+                              │ REST API
+                              ▼
+                    ┌────────────────────┐
+                    │   Flask Backend    │
+                    │    Render Web      │
+                    │      Service       │
+                    └──────┬─────┬───────┘
+                           │     │
+                 ┌─────────┘     └─────────┐
+                 ▼                         ▼
+          ┌──────────────┐          ┌──────────────┐
+          │ PostgreSQL   │          │    Redis     │
+          │   Database   │          │    Cache     │
+          └──────────────┘          └──────┬───────┘
+                                           │
+                                           ▼
+                                    ┌──────────────┐
+                                    │    Celery    │
+                                    │ Background   │
+                                    │    Tasks     │
+                                    └──────────────┘
