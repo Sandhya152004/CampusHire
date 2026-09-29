@@ -31,6 +31,10 @@ app.register_blueprint(student_bp)
 CORS(app)
 
 db.init_app(app)
+
+with app.app_context():
+    db.create_all()
+
 mail.init_app(app)
 
 import os
@@ -87,8 +91,6 @@ def uploaded_resume(filename):
 if __name__ == "__main__":
 
     with app.app_context():
-
-        db.create_all()
         
         admin_email = os.getenv(
             "ADMIN_EMAIL",
