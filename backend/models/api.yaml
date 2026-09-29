@@ -1,0 +1,169 @@
+openapi: 3.0.3
+
+info:
+  title: Placement Portal API
+  description: REST API for the Placement Portal System
+  version: 1.0.0
+
+servers:
+  - url: http://127.0.0.1:5000
+
+paths:
+
+  /login:
+    post:
+      summary: Authenticate user
+
+  /student/register:
+    post:
+      summary: Register a student
+
+  /company/register:
+    post:
+      summary: Register a company
+
+  /admin/stats:
+    get:
+      summary: Get admin dashboard statistics
+
+  /admin/companies:
+    get:
+      summary: Get all companies
+
+  /admin/company/{company_id}:
+    get:
+      summary: Get company profile
+      parameters:
+        - name: company_id
+          in: path
+          required: true
+          schema:
+            type: integer
+
+  /admin/company/{company_id}/approve:
+    put:
+      summary: Approve company
+
+  /admin/company/{company_id}/reject:
+    put:
+      summary: Reject company
+
+  /admin/company/{company_id}/blacklist:
+    put:
+      summary: Blacklist company
+
+  /admin/company/{company_id}/restore:
+    put:
+      summary: Restore company
+
+  /admin/students:
+    get:
+      summary: Get all students
+
+  /admin/student/{student_id}:
+    get:
+      summary: Get student profile
+
+  /admin/student/{student_id}/blacklist:
+    put:
+      summary: Blacklist student
+
+  /admin/student/{student_id}/restore:
+    put:
+      summary: Restore student
+
+  /admin/drives:
+    get:
+      summary: Get all placement drives
+
+  /admin/drive/{drive_id}/approve:
+    put:
+      summary: Approve placement drive
+
+  /admin/drive/{drive_id}/reject:
+    put:
+      summary: Reject placement drive
+
+  /company/dashboard:
+    get:
+      summary: Company dashboard
+
+  /company/profile:
+    get:
+      summary: Get company profile
+    put:
+      summary: Update company profile
+
+  /company/drive:
+    post:
+      summary: Create placement drive
+
+  /company/drives:
+    get:
+      summary: Get company drives
+
+  /company/drive/{drive_id}:
+    put:
+      summary: Update placement drive
+
+  /company/drive/{drive_id}/close:
+    put:
+      summary: Close placement drive
+
+  /company/applications/{drive_id}:
+    get:
+      summary: View applicants
+
+  /company/application/{application_id}/status:
+    put:
+      summary: Update application status
+
+  /company/student/{student_id}:
+    get:
+      summary: View student profile
+
+  /company/export-applications:
+    post:
+      summary: Export applicants CSV
+
+  /company/download-export/{filename}:
+    get:
+      summary: Download exported CSV
+
+  /student/dashboard:
+    get:
+      summary: Student dashboard
+
+  /student/profile:
+    get:
+      summary: Get student profile
+    put:
+      summary: Update student profile
+
+  /student/resume:
+    post:
+      summary: Upload resume
+
+  /student/drives:
+    get:
+      summary: View approved placement drives
+
+  /student/apply/{drive_id}:
+    post:
+      summary: Apply for placement drive
+
+  /student/applications:
+    get:
+      summary: View applications
+
+  /student/export-applications:
+    post:
+      summary: Export applications CSV
+
+  /student/download-export/{filename}:
+    get:
+      summary: Download exported CSV
+
+  /student/download-offer-letter/{application_id}:
+    get:
+      summary: Download offer letter PDF
