@@ -35,6 +35,30 @@ db.init_app(app)
 with app.app_context():
     db.create_all()
 
+    admin_email = os.getenv(
+        "ADMIN_EMAIL",
+        "admin@placement.com"
+    )
+
+    admin_password = os.getenv(
+        "ADMIN_PASSWORD",
+        "admin123"
+    )
+
+    admin = User.query.filter_by(
+        email=admin_email
+    ).first()
+
+    if not admin:
+        admin_user = User(
+            email=admin_email,
+            password=generate_password_hash(admin_password),
+            role="admin"
+        )
+
+        db.session.add(admin_user)
+        db.session.commit()
+
 mail.init_app(app)
 
 import os
@@ -89,34 +113,5 @@ def uploaded_resume(filename):
     )
 
 if __name__ == "__main__":
-
-    with app.app_context():
-        
-        admin_email = os.getenv(
-            "ADMIN_EMAIL",
-            "admin@placement.com"
-        )
-
-        admin_password = os.getenv(
-            "ADMIN_PASSWORD",
-            "admin123"
-        )
-
-        admin = User.query.filter_by(
-            email=admin_email
-        ).first()
-
-        if not admin:
-            admin_user = User(
-                email=admin_email,
-                password=generate_password_hash(admin_password),
-                role='admin'
-            )
-
-            db.session.add(admin_user)
-            db.session.commit()
-
-            print("Admin created")
-
     app.run(debug=True)
     
